@@ -1,7 +1,8 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+
 from foundation.api.schemas import HealthResponse
 from foundation.rag.store import ask as rag_ask
-from pydantic import BaseModel
 
 app = FastAPI(title="AI Eng Foundation", version="0.1.0")
 
@@ -15,8 +16,10 @@ def health() -> HealthResponse:
 def root() -> dict[str, str]:
     return {"message": "AI Eng Foundation API"}
 
+
 class AskRequest(BaseModel):
     question: str
+
 
 @app.post("/ask")
 def ask_endpoint(payload: AskRequest):

@@ -1,8 +1,11 @@
 from unittest.mock import patch
+
 from fastapi.testclient import TestClient
+
 from foundation.api.main import app
 
 client = TestClient(app)
+
 
 @patch("foundation.api.main.rag_ask")
 def test_ask(mock_ask):

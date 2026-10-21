@@ -1,7 +1,9 @@
 from pathlib import Path
-import pandas as pd
+
 import chromadb
+import pandas as pd
 from chromadb.utils import embedding_functions
+
 
 def row_to_text(row: pd.Series) -> str:
     """Transforme une ligne de tableau en une description textuelle naturelle."""
@@ -12,6 +14,7 @@ def row_to_text(row: pd.Series) -> str:
         f"Catégorie : {row['categorie']}. "
         f"Prix de vente : {row['prix_eur']} EUR."
     )
+
 
 def build_pricing_vectorstore(
     csv_path: Path | str,
@@ -38,14 +41,16 @@ def build_pricing_vectorstore(
 
     for _, row in df.iterrows():
         documents.append(row_to_text(row))
-        metadatas.append({
-            "code_ean": str(row["code_ean"]),
-            "libelle": str(row["libelle_produit"]),
-            "marque": str(row["marque"]),
-            "categorie": str(row["categorie"]),
-            "prix_eur": float(row["prix_eur"]),
-            "is_mdd": bool(row["is_mdd"]),
-        })
+        metadatas.append(
+            {
+                "code_ean": str(row["code_ean"]),
+                "libelle": str(row["libelle_produit"]),
+                "marque": str(row["marque"]),
+                "categorie": str(row["categorie"]),
+                "prix_eur": float(row["prix_eur"]),
+                "is_mdd": bool(row["is_mdd"]),
+            }
+        )
         ids.append(f"ean_{row['code_ean']}")
 
     collection.upsert(

@@ -1,6 +1,9 @@
 from pathlib import Path
+
 import pytest
+
 from src.foundation.ingest_csv import build_pricing_vectorstore
+
 
 @pytest.fixture
 def sample_csv_path(tmp_path: Path) -> Path:
@@ -12,6 +15,7 @@ def sample_csv_path(tmp_path: Path) -> Path:
     )
     csv_file.write_text(csv_content, encoding="utf-8")
     return csv_file
+
 
 def test_ingestion_and_hybrid_query(sample_csv_path: Path, tmp_path: Path):
     db_dir = tmp_path / "chroma_test"
