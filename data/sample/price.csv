@@ -1,0 +1,11 @@
+code_ean,libelle_produit,marque,categorie,prix_eur,is_mdd
+3250390001234,Biscuits Nappés Chocolat Au Lait 200g,U,Épicerie Sucrée,1.25,True
+3250390005678,Biscuits Nappés Chocolat Au Lait 200g,LU,Épicerie Sucrée,1.95,False
+3250390009012,Jus d'Orange Sans Pulpe 1L,U,Boissons,1.45,True
+3250390003456,Jus d'Orange Pur Jus 1L,Tropicana,Boissons,2.60,False
+3250390007890,Gel Douche Hydratant Amande 250ml,U,Hygiène & Beauté,1.10,True
+3250390002345,Gel Douche Crème Douceur 250ml,Dov,Hygiène & Beauté,2.80,False
+3250390006789,Café Moulu Pure Origine Arabica 250g,U,Épicerie Sucrée,2.15,True
+3250390001122,Café Moulu Carte Noire 250g,Carte Noire,Épicerie Sucrée,3.40,False
+3250390004455,Pâtes Spaghetti Qualité Supérieure 500g,U,Épicerie Salée,0.85,True
+3250390008899,Pâtes Spaghetti N°5 500g,Barilla,Épicerie Salée,1.39,False
