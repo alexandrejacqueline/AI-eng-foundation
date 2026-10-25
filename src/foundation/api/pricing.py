@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 import chromadb
 from chromadb.utils import embedding_functions
 from fastapi import APIRouter, HTTPException, status
@@ -49,7 +51,8 @@ def ask_pricing(payload: PricingQueryRequest) -> PricingQueryResponse:
         client = chromadb.PersistentClient(path="./data/chroma_db")
         embedding_fn = embedding_functions.DefaultEmbeddingFunction()
         collection = client.get_collection(
-            name="pricing_mdd", embedding_function=embedding_fn
+            name="pricing_mdd",
+            embedding_function=cast(Any, embedding_fn),
         )
     except Exception as err:
         raise HTTPException(
@@ -58,7 +61,7 @@ def ask_pricing(payload: PricingQueryRequest) -> PricingQueryResponse:
         ) from err
 
     # Filtre métadonnées optionnel
-    where_clause = {}
+    where_clause: dict[str, Any] = {}
     if payload.is_mdd is not None:
         where_clause = {"is_mdd": payload.is_mdd}
 
@@ -66,12 +69,11 @@ def ask_pricing(payload: PricingQueryRequest) -> PricingQueryResponse:
     results = collection.query(
         query_texts=[payload.query],
         n_results=payload.top_k,
-        where=where_clause if where_clause else None,
+        where=cast(Any, where_clause) if where_clause else None,
     )
 
     products: list[ProductResult] = []
     if results and results["documents"] and results["metadatas"]:
-        # ChromaDB renvoie une liste de résultats par texte de requête
         for doc, meta in zip(
             results["documents"][0], results["metadatas"][0], strict=False
         ):
@@ -81,7 +83,7 @@ def ask_pricing(payload: PricingQueryRequest) -> PricingQueryResponse:
                     libelle=str(meta["libelle"]),
                     marque=str(meta["marque"]),
                     categorie=str(meta["categorie"]),
-                    prix_eur=float(meta["prix_eur"]),
+                    prix_eur=float(str(meta["prix_eur"])),
                     is_mdd=bool(meta["is_mdd"]),
                     text_description=doc,
                 )
