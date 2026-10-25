@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from foundation.api.pricing import router as pricing_router
 from foundation.api.schemas import HealthResponse
 from foundation.rag.store import ask as rag_ask
 
 app = FastAPI(title="AI Eng Foundation", version="0.1.0")
+
+# 1. Enregistrement du nouveau sous-routeur de prix
+app.include_router(pricing_router)
 
 
 @app.get("/health", response_model=HealthResponse)
