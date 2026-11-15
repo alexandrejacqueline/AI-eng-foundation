@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 
 
 class Chunk(BaseModel):
-    """Représente un bloc de texte extrait d'un document avec ses métadonnées de position."""
+    """Représente un bloc de texte avec ses métadonnées de position."""
 
     text: str = Field(..., description="Contenu textuel du chunk")
     chunk_id: int = Field(
@@ -25,7 +25,7 @@ def chunk_text(
     chunk_size: int = 500,
     chunk_overlap: int = 100,
 ) -> list[Chunk]:
-    """Découpe un texte en blocs avec chevauchement (sliding window) et métadonnées de position.
+    """Découpe un texte en blocs avec chevauchement (sliding window).
 
     Args:
         text: Le texte complet à découper.
